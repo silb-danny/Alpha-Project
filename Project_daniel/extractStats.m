@@ -1,0 +1,23 @@
+function [timeDomainStats] = extractStats(y)
+[~,l] = size(y);
+ysorted = sort(y);
+maxAudio = ysorted(end);
+minAudio = ysorted(1);
+meanAudio = mean(y);
+medianAudio = median(y);
+stdAudio = std(y);
+maxDivMean = maxAudio/meanAudio;
+maxDivMedian = maxAudio/medianAudio; % problamatic if median 0
+std2divmean2 = (stdAudio^2)/(meanAudio^2);
+SmallestNum2 = ysorted(2);
+SmallestNum3 = ysorted(3);
+SmallestNum4 = ysorted(4);
+SmallestNum5 = ysorted(5);
+mean4minValues = mean(ysorted(1:4)); % mean of 4 smallest values
+meanbiggerthan10pow6 = mean(y(y>10^-6)); % mean of values > 10^-6
+numOfValuesbiggerDivNumOfValues1 = sum(y>mean(y))/l; % #values > mean / #values
+numOfValuesbiggerDivNumOfValues2 = sum(y>0.1*mean(y))/l; % #values > 0.1*mean / #values
+numOfValuesbiggerDivNumOfValues3 = sum(y>5*mean(y))/l; % #values > 5*mean / #values
+numOfValuesbiggerDivNumOfValues4 = sum(y>0.4)/l; % #values > 0.4 / #values
+timeDomainStats = [meanAudio;maxAudio;minAudio;medianAudio;stdAudio;maxDivMean;maxDivMedian;std2divmean2;SmallestNum2;SmallestNum3;SmallestNum4;SmallestNum5;mean4minValues;meanbiggerthan10pow6;numOfValuesbiggerDivNumOfValues1;numOfValuesbiggerDivNumOfValues2;numOfValuesbiggerDivNumOfValues3;numOfValuesbiggerDivNumOfValues4];
+end
